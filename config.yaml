@@ -1,0 +1,5 @@
+database:
+  host: "localhost:5433"
+  user: fontree
+  password: blabla
+  database: fontree
