@@ -1,5 +1,6 @@
 database:
-  host: "localhost:5433"
-  user: fontree
-  password: blabla
-  database: fontree
+  host: localhost
+  user: root
+  password: root
+  database: ddorcak
+  port: 3312
