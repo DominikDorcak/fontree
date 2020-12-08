@@ -45,3 +45,36 @@ def saveDataCSV():
     # np.savetxt("data/answers-" +datetime.now().strftime("%m-%d-%Y::%H:%M:%S") +".csv", data, delimiter=",")
     pd.DataFrame(data).to_csv("data/answers-" +datetime.now().strftime("%m-%d-%Y::%H:%M:%S") +".csv")
 
+
+def fontMap():
+    cnx = getDbConnection();
+    cursor = cnx.cursor()
+
+    query = (
+        "SELECT f.font_id,f.name FROM font f")
+    cursor.execute(query)
+
+    touples = cursor.fetchall()
+    return touples
+
+
+def questionMap():
+    cnx = getDbConnection();
+    cursor = cnx.cursor()
+
+    query = (
+        "SELECT q.question_id,q.text FROM question q")
+    cursor.execute(query)
+
+    touples = cursor.fetchall()
+    return touples
+
+def saveMaps():
+    questions = questionMap()
+    with open('data/questions.txt', 'w') as fp:
+        fp.write('\n'.join('%s %s' % x for x in questions))
+    fonts = fontMap()
+    with open('data/fonts.txt', 'w') as fp:
+        fp.write('\n'.join('%s %s' % x for x in fonts))
+
+
