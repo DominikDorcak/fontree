@@ -1,0 +1,44 @@
+7 DaunPenh
+9 OCR A Extended
+10 Times New Roman
+11 Rockwell
+12 Elephant
+13 Cooper Black
+14 Forte
+15 Palace Script MT
+16 Arial
+17 Georgia Pro Semibold
+18 Verdana
+19 Liberation Serif
+20 DejaVu Sans Mono
+21 Akaash
+22 Noto Mono
+23 Hack
+24 Source Code Pro
+25 OCRB
+26 Felix Titling
+27 Felix Titling
+28 Bahnschrift SemiBold Condensed
+29 Castellar
+30 Dubai
+31 Bodoni MT Black
+32 Impact
+33 Algerian
+34 Eras Bold ITC
+35 Haettenschweiler
+36 Wide Latin
+37 Walbaum Display Heavy
+38 Gadugi
+39 Posterama
+40 Corbel Light
+41 Ebrima
+42 Vijaya
+43 HGPGothicE
+44 David
+45 DengXian
+46 Consolas
+47 Aparajita
+48 Lucida Sans Unicode
+49 Harrington
+50 Ink Free
+51 Miriam

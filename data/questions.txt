@@ -1,0 +1,21 @@
+1 Je font pätkový?
+2 Končí sa veľké pímeno J pod riadkom?
+3 Má veľké U vpravo dole pätku?
+4 Je číslo 4 otvorené?
+5 Vyzerá malé a ako písané malé a?
+6 Majú písmená sklon?
+7 Má veľké písmeno Y zvislú nôžku?
+8 Je malé písmeno y v tvare u?
+9 Má malé písmeno g slučku?
+10 Je spodná časť veľkého G zahnutá do vnútra?
+11 Je stred písmena M na základnej čiare?
+12 Je bodka pod otáznikom okrúhla?
+13 Má veľké písmeno K šikmé hrany spojené na vertikálnej hrane?
+14 Je pravá nôžka veľkého písmena R zahnutá?
+15 Vyčnieva horizontálna hrana malého písmena f z oboch strán?
+16 Zbehávajú sa bočné hrany veľkého písmena M?
+17 Má znak $ dve zvislé čiary?
+18 Vyčnieva pätka vo veľkom písmene Q z oboch strán?
+19 Je vo veľkom písmene P bruško dole spojené z vertikálnou hranou?
+20 Má veľké písmeno E pätku na prostrednej horizontálnej čiare?
+21 Sú hrany veľkého písmena W v prostriedku prekrížené?
