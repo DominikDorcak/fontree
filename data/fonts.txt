@@ -42,3 +42,10 @@
 49 Harrington
 50 Ink Free
 51 Miriam
+52 Narkisim
+53 Niagara Solid
+54 Dotum
+55 Ebrima
+56 Euphemia
+57 Yu Gothic UI Semibold
+58 Gisha
