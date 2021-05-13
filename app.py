@@ -13,11 +13,12 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # trees.createTreeClasifier(database.getFontData());
-    # database.saveDataCSV();
+    database.saveDataCSV();
     # database.saveMaps();
 
-    trees.drawFromCSV("data/answers-12-14-2020::15:07:44.csv")
-    trees.drawFromCSVSmall("data/answers-12-14-2020::15:07:44.csv")
+    #trees.drawFromCSV("data/answers-12-14-2020__15_07_44.csv")
+    #trees.drawFromCSVSmall("data/answers-12-14-2020__15_07_44.csv")
+    #database.restoreQuestionAnswers("data/answers-12-14-2020__15_07_44.csv")
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
