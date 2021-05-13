@@ -3,4 +3,4 @@ database:
   user: root
   password: root
   database: ddorcak
-  port: 3312
+  port: 3306

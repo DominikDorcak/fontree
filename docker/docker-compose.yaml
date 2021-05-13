@@ -1,10 +1,20 @@
 version: '3.1'
 services:
-  postgres:
-    image: postgres
+  db:
+    image: mariadb
     restart: always
     environment:
-      POSTGRES_PASSWORD: blabla
-      POSTGRES_USER: fontree
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ddorcak
+      MYSQL_USER: ddorcak
+      MYSQL_PASSWORD: ddorcak
     ports:
-      - "5433:5432"
+      - "3306:3306"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
