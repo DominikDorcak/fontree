@@ -2,10 +2,13 @@
 import numpy as np
 import pandas as pd
 from sklearn import metrics
-from sklearn.tree import DecisionTreeClassifier, export_graphviz
+from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
 from IPython.display import Image
 import pydotplus
+
+from src.api.trees.DBNode import DBNode
+
 
 def createTreeClasifier(dataArr):
     data = pd.DataFrame(dataArr)
@@ -16,7 +19,11 @@ def createTreeClasifier(dataArr):
     pred = clf.predict(X)
 
     print("Accuracy:", metrics.accuracy_score(Y,pred))
-    drawGraph(clf,Y)
+    # drawGraph(clf,Y)
+    nodearray = nodesToArray(clf.tree_)
+    for n in nodearray:
+        print(n.toString())
+
 
 
 def loadFontMap(filePath):
@@ -65,7 +72,27 @@ def drawGraph(clf, Y, imageName="tree.png"):
                     filled=True, rounded=True,
                     special_characters=True, class_names=[fontmap[x] for x in Y])
     dot_data.close()
+    text_data = open('texttree.txt', 'w+')
+    text_data.write(export_text(clf))
+    text_data.close()
     dot_data = open("trees.dot","r")
     graph = pydotplus.graph_from_dot_data(dot_data.read())
     graph.write_png(imageName)
     Image(graph.create_png())
+
+
+
+
+def saveTreeToDB(clf):
+    tree = clf.tree_
+
+
+def nodesToArray(tree):
+    leftch = tree.children_left
+    rightch = tree.children_right
+    feature = tree.feature
+    classes = tree.value
+    nodes = []
+    for i in range(len(leftch)):
+        nodes.append(DBNode(i,leftch[i],rightch[i],feature[i],np.argmax(classes[i])))
+    return nodes
