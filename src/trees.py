@@ -1,4 +1,3 @@
-
 import numpy as np
 import pandas as pd
 from sklearn import metrics
@@ -13,17 +12,14 @@ from src.api.trees.DBNode import DBNode
 def createTreeClasifier(dataArr):
     data = pd.DataFrame(dataArr)
     Y = data[0]
-    X = data[range(1,22)]
+    X = data[range(1, 22)]
     clf = DecisionTreeClassifier()
-    clf.fit(X,Y)
+    clf.fit(X, Y)
     pred = clf.predict(X)
 
-    print("Accuracy:", metrics.accuracy_score(Y,pred))
-    # drawGraph(clf,Y)
-    nodearray = nodesToArray(clf.tree_)
-    for n in nodearray:
-        print(n.toString())
-
+    print("Accuracy:", metrics.accuracy_score(Y, pred))
+    drawGraph(clf,Y)
+    saveTreeToDB(clf,Y)
 
 
 def loadFontMap(filePath):
@@ -34,7 +30,7 @@ def loadFontMap(filePath):
     for l in lines:
         space = l.find(' ')
         id = int(l[:space])
-        name = l[space+1:len(l)-1]
+        name = l[space + 1:len(l) - 1]
         d[id] = name
     return d
 
@@ -62,37 +58,43 @@ def drawFromCSVSmall(filename):
     pred = clf.predict(X.head(10))
 
     print("Accuracy:", metrics.accuracy_score(Y.head(10), pred))
-    drawGraph(clf, Y,"smallTree.png")
+    drawGraph(clf, Y, "smallTree.png")
 
 
 def drawGraph(clf, Y, imageName="tree.png"):
-    dot_data = open("trees.dot","w+")
+    dot_data = open("trees.dot", "w+")
     fontmap = loadFontMap('data/fonts.txt')
-    export_graphviz(clf, out_file=dot_data,
+    export_graphviz(clf,
+                    out_file=dot_data,
                     filled=True, rounded=True,
-                    special_characters=True, class_names=[fontmap[x] for x in Y])
+                    special_characters=True,
+                    class_names=[fontmap[x] for x in Y])
     dot_data.close()
     text_data = open('texttree.txt', 'w+')
     text_data.write(export_text(clf))
     text_data.close()
-    dot_data = open("trees.dot","r")
+    dot_data = open("trees.dot", "r")
     graph = pydotplus.graph_from_dot_data(dot_data.read())
     graph.write_png(imageName)
     Image(graph.create_png())
 
 
-
-
-def saveTreeToDB(clf):
+def saveTreeToDB(clf,Y):
     tree = clf.tree_
+    nodes = nodesToArray(tree,Y)
+    radix_id = nodes[0].saveRadix()
+    for i in range(1,len(nodes)):
+        nodes[i].saveNode(radix_id)
 
 
-def nodesToArray(tree):
+
+def nodesToArray(tree,Y):
     leftch = tree.children_left
     rightch = tree.children_right
     feature = tree.feature
     classes = tree.value
     nodes = []
     for i in range(len(leftch)):
-        nodes.append(DBNode(i,leftch[i],rightch[i],feature[i],np.argmax(classes[i])))
+        classid = np.argmax(classes[i])
+        nodes.append(DBNode(i, leftch[i], rightch[i], feature[i]+1 if feature[i] >= 0 else None, Y[classid]))
     return nodes
