@@ -13,12 +13,15 @@ except ImportError:
 
 from . import config
 
+cnx = None
 
 # nastavenie pripojenia k db podla configu
 def getDbConnection():
-    cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
-    database = cfg['database']
-    cnx = mysql.connector.connect(**database)
+    global cnx
+    if cnx is None:
+        cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
+        database = cfg['database']
+        cnx = mysql.connector.connect(**database)
     return cnx
 
 

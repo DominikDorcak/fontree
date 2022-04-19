@@ -2,21 +2,44 @@ from src import database
 
 
 class DBNode:
-    def __init__(self, id, left_child, right_child, feature_id, class_id):
-        self.id = id
-        self.left_child = left_child
-        self.right_child = right_child
-        self.feature_id = feature_id
-        self.class_id = class_id
+    def __init__(self, *args):
+        if len(args) == 5:
+            self.id = int(args[0])
+            self.left_child = int(args[1])
+            self.right_child = int(args[2])
+            self.feature_id = int(args[3]) if args[3] is not None else 0
+            self.class_id = int(args[4])
+            return
+        if len(args) == 1:
+            self.load(args[0])
 
     def is_leaf(self):
         return self.left_child == self.right_child
 
+    def loadData(self,args):
+        self.id = int(args[0])
+        self.left_child = int(args[1])
+        self.right_child = int(args[2])
+        self.feature_id = int(args[3]) if args[3] is not None else 0
+        self.class_id = int(args[4])
+
+    def load(self, id):
+        cnx = database.getDbConnection()
+        cursor = cnx.cursor()
+        sql = "SELECT * from node WHERE node_id=%s"
+        cursor.execute(sql,[id])
+        dbres = cursor.fetchone()
+        self.loadData(dbres)
+        print(self.toString())
+
+
     def saveRadix(self):
         cnx = database.getDbConnection()
         cursor = cnx.cursor()
-        sql = "INSERT INTO node () VALUES () "
-        cursor.execute(sql)
+        sql = "INSERT INTO node (left_child_id,right_child_id,question_id,font_id) VALUES (%s,%s,%s,%s)"
+        data = (None, None, None, None)
+        cursor.execute(sql, data)
+        cnx.commit()
         self.id = int(cursor.lastrowid)
         self.addRadixId(self.id)
         self.update()
@@ -29,7 +52,8 @@ class DBNode:
     def update(self):
         cnx = database.getDbConnection()
         cursor = cnx.cursor()
-        sql = "UPDATE node SET left_child_id=%s, " \
+        sql = "UPDATE node SET " \
+              "left_child_id=%s, " \
               "right_child_id=%s, " \
               "question_id=%s, " \
               "font_id=%s " \
@@ -40,19 +64,21 @@ class DBNode:
                 self.class_id,
                 self.id)
         cursor.execute(sql, data)
+        cnx.commit()
 
-    def saveNode(self,radix_id):
+    def saveNode(self, radix_id):
         cnx = database.getDbConnection()
         self.addRadixId(radix_id)
         cursor = cnx.cursor()
         sql = "INSERT INTO  node (left_child_id,right_child_id,question_id,font_id)" \
               " VALUES " \
-              "(%integer ,%integer, %integer, %integer )"
+              "(%s ,%s, %s, %s )"
         data = (self.left_child,
                 self.right_child,
                 self.feature_id,
                 self.class_id,)
         cursor.execute(sql, data)
+        cnx.commit()
 
     def toString(self):
         res = 'NODE:\n' \
