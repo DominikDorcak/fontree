@@ -6,7 +6,6 @@ from flask_restful import Api
 
 
 import src.database as mariadb
-import mysql.connector.errors as errors
 
 from src.api.Font import Font
 from src.api.Image import Image
@@ -31,19 +30,20 @@ api.add_resource(Font, '/font/<int:id>')
 
 
 
-@app.route("/status")
+@app.route("/")
 
 def status():
-    res = db.get_server_info()
+    c = db.cursor()
     online = True
     try:
         starttime = datetime.now()
-        ping = db.ping(reconnect=True,attempts=2,delay=1)
+        c.execute('SELECT version()')
+        res = c.fetchone()
         time = datetime.now()-starttime
-    except errors.InterfaceError:
+    except Exception:
         online = False
 
-    db_status = ("online: " + res + " ping:" + str(time.total_seconds() * 1000) + "ms") if online else "offline"
+    db_status = ("online: " + res[0] + " ping:" + str(time.total_seconds() * 1000) + "ms") if online else "offline"
     return """<!DOCTYPE html>
         <html>
             <head>
