@@ -3,11 +3,14 @@ from datetime import datetime
 import yaml
 from flask import Flask
 from flask_restful import Api
-from Image import Image
 
 
 import src.database as mariadb
 import mysql.connector.errors as errors
+
+from src.api.Font import Font
+from src.api.Image import Image
+from src.api.Node import Node
 
 try:
     import importlib.resources as pkg_resources
@@ -23,6 +26,9 @@ db = mariadb.getDbConnection()
 
 api = Api(app)
 api.add_resource(Image, '/image/<path:path>')
+api.add_resource(Node, '/node/<int:id>')
+api.add_resource(Font, '/font/<int:id>')
+
 
 
 @app.route("/status")

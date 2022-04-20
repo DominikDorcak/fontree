@@ -11,7 +11,7 @@ class Image(Resource):
     HOME = ""
 
     def __init__(self):
-        from server import cfg
+        from src.api.server import cfg
         self.HOME = cfg['imghome']
 
     def get(self, path):
