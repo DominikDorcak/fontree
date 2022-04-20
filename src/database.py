@@ -1,4 +1,4 @@
-import mysql.connector
+import psycopg2
 import yaml
 import numpy as np
 from datetime import datetime
@@ -20,8 +20,8 @@ def getDbConnection():
     global cnx
     if cnx is None:
         cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
-        database = cfg['database']
-        cnx = mysql.connector.connect(**database)
+        db = cfg['database']
+        cnx = psycopg2.connect(host=db['host'],database=db['database'],user=db['user'],password=db['password'])
     return cnx
 
 
