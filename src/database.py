@@ -1,19 +1,27 @@
-import mysql.connector
+import psycopg2
 import yaml
 import numpy as np
 from datetime import datetime
 import pandas as pd
 import csv
 
+try:
+    import importlib.resources as pkg_resources
+except ImportError:
+    # Try backported to PY<37 `importlib_resources`.
+    import importlib_resources as pkg_resources
+
+from . import config
+
+cnx = None
+
 # nastavenie pripojenia k db podla configu
 def getDbConnection():
-    with open('config.yaml') as f:
-        config = yaml.safe_load(f)
-
-    database = config['database']
-
-    cnx = mysql.connector.connect(**database)
-
+    global cnx
+    if cnx is None:
+        cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
+        db = cfg['database']
+        cnx = psycopg2.connect(host=db['host'],database=db['database'],user=db['user'],password=db['password'])
     return cnx
 
 
