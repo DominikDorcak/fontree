@@ -19,7 +19,7 @@ class Status(Resource):
         except Exception:
             online = False
 
-        db_status = ("online: " + res[0] + " ping:" + str(time.total_seconds() * 1000) + "ms") if online else "offline"
         json['db'] = {"online":online,
-                      "ping": str(time.total_seconds() * 1000) + "ms" if online else None}
+                      "version": res[0],
+                      "ping": str(time.total_seconds() * 1000) + "ms" if online else None,}
         return json, 200

@@ -19,6 +19,20 @@ class DBFont:
         self.id = res[0]
         self.name = res[1]
 
+    @staticmethod
+    def getRandomId():
+        db = database.getDbConnection()
+        cursor = db.cursor()
+        sql = "SELECT font_id FROM font ORDER BY random() LIMIT 1"
+        cursor.execute(sql)
+        res = cursor.fetchone()
+        if res is None:
+            raise NotFoundException
+        return res[0]
+
+
+
+
     def jsonify(self):
         return {"font_id": self.id,
                 "name": self.name}
