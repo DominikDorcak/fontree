@@ -139,5 +139,3 @@ def restoreQuestionAnswers(answers_csv):
     cnx.commit()
     print("Rekonstrukcia DB: odpovede zapisane")
 
-
-

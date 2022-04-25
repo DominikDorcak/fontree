@@ -4,6 +4,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
+from src.api.ExperimentEntry import ExperimentEntry
 from src.api.RandomFont import RandomFont
 from src.api.Font import Font
 from src.api.Image import Image
@@ -31,6 +32,8 @@ api.add_resource(Node, '/node/<int:id>')
 api.add_resource(Font, '/font/<int:id>')
 api.add_resource(RandomFont, '/font/random')
 api.add_resource(Question, '/question/<int:id>')
+api.add_resource(ExperimentEntry, '/experiment/entry')
+
 
 
 
