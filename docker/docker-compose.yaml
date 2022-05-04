@@ -17,6 +17,16 @@ services:
     restart: always
     ports:
       - "8888:8080"
+
+  flask-server:
+    volumes:
+      - '/home/dorcak/Skola/Diplomka/fontree/src:/api/src'
+    build:
+      dockerfile: ./docker/flask/DOCKERFILE
+      context:  ..
+    ports:
+      - '5000:5000'
+
 volumes:
   db:
     driver: local
