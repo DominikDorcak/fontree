@@ -19,6 +19,7 @@ services:
       - "8888:8080"
 
   flask-server:
+    restart: always
     volumes:
 #      pred :/api/src napisat absolutnu cestu k src priecinku - kvoli sledovaniu zmien v kode
       - '/home/dorcak/Skola/Diplomka/fontree/src:/api/src'
