@@ -1,3 +1,5 @@
+import os
+
 import psycopg2
 import yaml
 import numpy as np
@@ -19,9 +21,13 @@ cnx = None
 def getDbConnection():
     global cnx
     if cnx is None:
-        cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
-        db = cfg['database']
-        cnx = psycopg2.connect(host=db['host'],database=db['database'],user=db['user'],password=db['password'],options="-c search_path=ddorcak")
+        envdb = os.environ['DATABASE_URL']
+        if envdb:
+            cnx = psycopg2.connect(envdb)
+        else:
+            cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
+            db = cfg['database']
+            cnx = psycopg2.connect(host=db['host'],database=db['database'],user=db['user'],password=db['password'],options="-c search_path=ddorcak")
     return cnx
 
 

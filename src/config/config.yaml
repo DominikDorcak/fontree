@@ -4,4 +4,3 @@ database:
   password: ddorcak
   database: ddorcak
   port: 5432
-imghome: /home/dorcak/Skola/Diplomka/fontree/img
