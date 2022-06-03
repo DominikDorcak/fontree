@@ -52,7 +52,7 @@ class Status(Resource):
             out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
             return out
 
-        git_ver_dyno = _git_version_heroku()
+        git_ver_dyno = _git_version_heroku().strip()
         if not git_ver_dyno == -1:
             return git_ver_dyno
         try:
