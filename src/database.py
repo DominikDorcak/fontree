@@ -21,15 +21,27 @@ cnx = None
 def getDbConnection():
     global cnx
     if cnx is None:
+       createConnection()
+    else:
         try:
-            envdb = os.environ['DATABASE_URL']
-            cnx = psycopg2.connect(envdb,options="-c search_path=ddorcak")
-        except KeyError as err:
-            cfg = yaml.safe_load(pkg_resources.read_text(config,'config.yaml'))
-            db = cfg['database']
-            cnx = psycopg2.connect(host=db['host'],database=db['database'],user=db['user'],password=db['password'],options="-c search_path=ddorcak")
+            cursor = cnx.cursor()
+        except Exception as e:
+            createConnection()
+
+
     return cnx
 
+
+def createConnection():
+    global cnx
+    try:
+        envdb = os.environ['DATABASE_URL']
+        cnx = psycopg2.connect(envdb, options="-c search_path=ddorcak")
+    except KeyError as err:
+        cfg = yaml.safe_load(pkg_resources.read_text(config, 'config.yaml'))
+        db = cfg['database']
+        cnx = psycopg2.connect(host=db['host'], database=db['database'], user=db['user'], password=db['password'],
+                               options="-c search_path=ddorcak")
 
 # nacitanie dat z databazy do numpy pola
 def getFontData():
