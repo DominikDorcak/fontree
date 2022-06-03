@@ -27,7 +27,6 @@ cors = CORS(app)
 
 api = Api(app)
 api.add_resource(Status, '/')
-api.add_resource(Status, '/status')
 api.add_resource(Image, '/image/<path:path>')
 api.add_resource(Node, '/node/<int:id>')
 api.add_resource(Font, '/font/<int:id>')
