@@ -1,3 +1,4 @@
+import subprocess
 from datetime import datetime
 
 from flask_restful import Resource, abort
@@ -22,4 +23,9 @@ class Status(Resource):
         json['db'] = {"online":online,
                       "version": res[0],
                       "ping": str(time.total_seconds() * 1000) + "ms" if online else None,}
+        json['status'] = 'online'
+        json['version'] = 'git-' + self.get_git_revision_short_hash()
         return json, 200
+
+    def get_git_revision_short_hash(self) -> str:
+        return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
