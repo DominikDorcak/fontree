@@ -45,7 +45,7 @@ class Status(Resource):
 
         try:
             out = _minimal_ext_cmd(['git', 'describe'])
-            GIT_REVISION = out.strip()
+            GIT_REVISION = out.strip().decode('ascii')
         except OSError:
             GIT_REVISION = "Unknown"
 
