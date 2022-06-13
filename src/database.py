@@ -17,6 +17,7 @@ from . import config
 
 cnx = None
 
+
 # nastavenie pripojenia k db podla configu
 def getDbConnection():
     global cnx
@@ -27,8 +28,6 @@ def getDbConnection():
             cursor = cnx.cursor()
         except Exception as e:
             createConnection()
-
-
     return cnx
 
 

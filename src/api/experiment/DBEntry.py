@@ -1,3 +1,4 @@
+
 from src import database
 
 
@@ -34,7 +35,7 @@ class DBEntry:
               "time_in_milis," \
               "question_count" \
               ") VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING id,entry_time"
-        cursor.execute(sql, [self.age,
+        cursor.execute(sql, [self.age if not (self.age == 'NaN') else None,
                              self.sex,
                              self.highest_education,
                              self.assigned_font,

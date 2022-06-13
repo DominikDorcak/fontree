@@ -34,8 +34,8 @@ class Status(Resource):
             # version from heroku dyno - app must have enabled dyno metadata
             try:
                 heroku_app_id = os.environ.get('HEROKU_APP_ID')
-                return os.environ.get('HEROKU_SLUG_COMMIT')
-            except Exception:
+                return os.environ.get('HEROKU_SLUG_COMMIT').strip()
+            except AttributeError:
                 return -1
 
         def _minimal_ext_cmd(cmd):
@@ -52,7 +52,7 @@ class Status(Resource):
             out = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
             return out
 
-        git_ver_dyno = _git_version_heroku().strip()
+        git_ver_dyno = _git_version_heroku()
         if not git_ver_dyno == -1:
             return git_ver_dyno
         try:

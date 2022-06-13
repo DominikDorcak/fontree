@@ -37,11 +37,12 @@ class DBNode:
     def saveRadix(self):
         db = database.getDbConnection()
         cursor = db.cursor()
-        sql = "INSERT INTO node (left_child_id,right_child_id,question_id,font_id) VALUES (%s,%s,%s,%s)"
+        sql = "INSERT INTO node (left_child_id,right_child_id,question_id,font_id) VALUES (%s,%s,%s,%s) RETURNING node_id"
         data = (None, None, None, None)
         cursor.execute(sql, data)
+        res = cursor.fetchone()
         db.commit()
-        self.id = int(cursor.lastrowid)
+        self.id = int(res[0])
         self.addRadixId(self.id)
         self.update()
         return self.id

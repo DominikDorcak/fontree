@@ -15,15 +15,14 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    node = DBNode(1)
 
     # trees.createTreeClasifier(database.getFontData())
     # database.saveDataCSV();
     # database.saveMaps();
 
 
-    #trees.drawFromCSV("data/answers-12-14-2020__15_07_44.csv")
-    #trees.drawFromCSVSmall("data/answers-12-14-2020__15_07_44.csv")
+    trees.drawFromCSV("data/answers-06-11-2022::19:20:36.csv")
+    trees.drawFromCSVSmall("data/answers-06-11-2022::19:20:36.csv")
     #database.restoreQuestionAnswers("data/answers-12-14-2020__15_07_44.csv")
 
 
