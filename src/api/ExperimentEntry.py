@@ -24,3 +24,9 @@ class ExperimentEntry(Resource):
             abort(500)
 
         return json, 201
+
+    def get(self):
+        json = {}
+        entires = DBEntry.getall()
+        json['entries'] = entires
+        return json, 200

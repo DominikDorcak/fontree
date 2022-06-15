@@ -22,6 +22,17 @@ class DBEntry:
             self.result_font = entry["result_font"]
             self.time_in_milis = entry["time_in_milis"]
             self.question_count = entry["question_count"]
+        if type(args[0]) is tuple:
+            entry = args[0]
+            self.id = entry[0]
+            self.age = entry[1]
+            self.sex = entry[2]
+            self.highest_education = entry[3]
+            self.assigned_font = entry[4]
+            self.result_font = entry[5]
+            self.time_in_milis = entry[6]
+            self.question_count = entry[7]
+            self.entry_time = entry[8]
 
     def save(self):
         db = database.getDbConnection()
@@ -46,6 +57,22 @@ class DBEntry:
         self.id = dbres[0]
         self.entry_time = dbres[1]
         db.commit()
+
+    @staticmethod
+    def getall():
+        db = database.getDbConnection()
+        cursor = db.cursor()
+        sql = "SELECT * FROM experiment_entry"
+        cursor.execute(sql)
+        dbres = cursor.fetchall()
+        entries = []
+        for line in dbres:
+            e = DBEntry(line)
+            entries.append(e)
+        return [e.jsonify() for e in entries]
+
+
+
 
     def jsonify(self):
         return {"id": self.id,
