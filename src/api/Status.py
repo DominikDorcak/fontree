@@ -9,6 +9,34 @@ from src import database
 class Status(Resource):
 
     def get(self):
+        """
+                status API
+                ---
+
+                responses:
+                  200:
+                    description: Status
+                    schema:
+                      id: Status
+                      properties:
+                        db:
+                          type: object
+                          description: Status DB
+                          properties:
+                            online:
+                              type: boolean
+                            version:
+                              type: string
+                            ping:
+                              type: string
+                        status:
+                          type: string
+                          description: Status API
+                        version:
+                          type: string
+                          description: git verzia API
+
+        """
         db = database.getDbConnection()
         c = db.cursor()
         online = True
