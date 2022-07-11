@@ -68,7 +68,7 @@ def getFontData():
 # ulozenie dat do csv filu
 def saveDataCSV():
     data = getFontData()
-    # np.savetxt("data/answers-" +datetime.now().strftime("%m-%d-%Y::%H:%M:%S") +".csv", data, delimiter=",")
+    # np.savetxt("data/answers-for-conexp-" +datetime.now().strftime("%m-%d-%Y::%H:%M:%S") +".csv", data, delimiter=";")
     pd.DataFrame(data).to_csv("data/answers-" + datetime.now().strftime("%m-%d-%Y::%H:%M:%S") + ".csv")
 
 
